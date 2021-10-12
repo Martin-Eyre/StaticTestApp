@@ -1,4 +1,31 @@
-{
+{"routes": [
+    {
+      "route": "/reports",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/images/*",
+      "headers": {
+        "cache-control": "must-revalidate, max-age=15770000"
+      }
+    },
+    {
+      "route": "/api/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/login",
+      "rewrite": "/.auth/login/aad"
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout"
+    }
+  ],
     "navigationFallback": {
         "rewrite": "/index.html"
     }
