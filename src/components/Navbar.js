@@ -12,7 +12,7 @@ function Navbar() {
     const [userInfo, setUserInfo] = useState();
     const providers = ['twitter','github','aad'];
     const redirect = window.location.pathname;
-
+    
     useEffect(() => {
         (async () => {
             setUserInfo(await getUserInfo());
@@ -52,12 +52,14 @@ function Navbar() {
                     {SidebarData.map ((item,index) =>
                     {
                         return (
+                          (userInfo && item.protected) || !item.protected ?
                             <li key={index} className={item.cName}>
                                 <Link to={item.path}>
                                     {item.icon}
                                     <span>{item.title}</span>
                                 </Link>
                             </li>
+                            : <div/>
                         )
                     })}
                </ul>

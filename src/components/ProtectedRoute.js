@@ -1,0 +1,20 @@
+import React, {useState} from "react";
+import { Redirect, Route } from "react-router-dom";
+
+function ProtectedRoute({ component: Component, ...restOfProps }) {
+  const isAuthenticated = localStorage.getItem("isAuthenticated");
+  const [userInfo, setUserInfo] = useState();
+
+  console.log("this", userInfo);
+
+  return (
+    <Route
+      {...restOfProps}
+      render={(props) =>
+        userInfo ? <Component {...props} /> : <Redirect to="/signin" />
+      }
+    />
+  );
+}
+
+export default ProtectedRoute;
