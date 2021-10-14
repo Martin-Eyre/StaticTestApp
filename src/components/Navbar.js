@@ -10,9 +10,14 @@ function Navbar() {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
     const [userInfo, setUserInfo] = useState();
-    const providers = ['twitter','github','aad'];
     const redirect = window.location.pathname;
+
     
+    function userAuthenticated() {
+      console.log('getting user details');
+      return userInfo ? true : false ;
+    }
+
     useEffect(() => {
         (async () => {
             setUserInfo(await getUserInfo());
@@ -68,12 +73,11 @@ function Navbar() {
            <nav className="menu auth">
   <p className="menu-label">Auth</p>
   <div className="menu-list auth">
-    {!userInfo &&
-      providers.map((provider) => (
-        <a key={provider} href={`/.auth/login/${provider}?post_login_redirect_uri=${redirect}`}>
-          {provider}
+    {!userInfo && 
+        <a key='aad' href={`/.auth/login/aad?post_login_redirect_uri=${redirect}`}>
+          Login using Azure AD
         </a>
-      ))}
+      }
     {userInfo && <a href={`/.auth/logout?post_logout_redirect_uri=${redirect}`}>Logout</a>}
   </div>
   
